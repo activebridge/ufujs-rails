@@ -51,7 +51,7 @@ Firefox
 Opera
 Safari
 
-If you care about IE9 and lower, do't worry I am sure that you will have the white line in your life soon.
+If you care about IE9 and lower, don't worry I am sure that you will have the white line in your life soon.
 
 For IE9 and lower form will be submited as `HTML`.
 You just have to add the `authenticity_token` option to your form
