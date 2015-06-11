@@ -45,11 +45,11 @@ config.filter_parameters += [:image]
 Browser Compatibility
 -
 
-IE10 +
-Chrome
-Firefox
-Opera
-Safari
+![ie10](http://browserbadge.com/ie/10)
+![chrome](http://browserbadge.com/chrome)
+![firefox](http://browserbadge.com/firefox)
+![opera](http://browserbadge.com/opera)
+![safari](http://browserbadge.com/safari/5)
 
 If you care about IE9 and lower, don't worry I am sure that you will have the white line in your life soon.
 
