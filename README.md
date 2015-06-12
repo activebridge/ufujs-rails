@@ -45,6 +45,12 @@ config.filter_parameters += [:image]
 Browser Compatibility
 -
 
+<img src='http://browserbadge.com/ie/10' width=75px/>
+<img src='http://browserbadge.com/chrome' width=75px/>
+<img src='http://browserbadge.com/firefox' width=75px/>
+<img src='http://browserbadge.com/opera' width=75px/>
+<img src='http://browserbadge.com/safari/5' width=75px/>
+
 ![ie10](http://browserbadge.com/ie/10)
 ![chrome](http://browserbadge.com/chrome)
 ![firefox](http://browserbadge.com/firefox)
