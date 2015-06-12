@@ -51,12 +51,6 @@ Browser Compatibility
 <img src='http://browserbadge.com/opera' width=75px/>
 <img src='http://browserbadge.com/safari/5' width=75px/>
 
-![ie10](http://browserbadge.com/ie/10)
-![chrome](http://browserbadge.com/chrome)
-![firefox](http://browserbadge.com/firefox)
-![opera](http://browserbadge.com/opera)
-![safari](http://browserbadge.com/safari/5)
-
 If you care about IE9 and lower, don't worry I am sure that you will have the white line in your life soon.
 
 For IE9 and lower form will be submited as `HTML`.
