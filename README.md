@@ -45,11 +45,11 @@ config.filter_parameters += [:image]
 Browser Compatibility
 -
 
-<img src='http://browserbadge.com/ie/10' width=75px/>
-<img src='http://browserbadge.com/chrome' width=75px/>
-<img src='http://browserbadge.com/firefox' width=75px/>
-<img src='http://browserbadge.com/opera' width=75px/>
-<img src='http://browserbadge.com/safari/5' width=75px/>
+![ie10](http://www.browserbadge.com/ie/10/75px)
+![chrome](http://www.browserbadge.com/chrome/75px)
+![firefox](http://www.browserbadge.com/firefox/75px)
+![opera](http://www.browserbadge.com/opera/75px)
+![safari](http://www.browserbadge.com/safari/5/75px)
 
 If you care about IE9 and lower, don't worry I am sure that you will have the white line in your life soon.
 
