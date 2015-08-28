@@ -26,8 +26,7 @@ Usage
 -
 This gem encode the base64 string on the client side and handle the decoding in middleware, so we will get already decoded string in params on server side.
 
-=
-add `config.middleware.use "Decoder"` to `config/application.rb`
+add `config.middleware.insert_before ActionController::ParamsParser, 'Decoder'` to `config/application.rb`
 
 List all parameters, that should be decoded in `config/initializers/encoded_parameters.rb`:
 
@@ -36,7 +35,7 @@ config.encoded_parameters += [:image]
 ```
 
 Filter Parameters
-=
+-
 To keep your logs clean you can add the filter with name of you attribute to `config/initializers/filter_paremeter_logging.rb`:
 
 ```ruby
@@ -52,9 +51,9 @@ Browser Compatibility
 ![opera](http://www.browserbadge.com/opera/75px)
 ![safari](http://www.browserbadge.com/safari/5/75px)
 
-If you care about IE9 and lower, don't worry I am sure that you will have the white line in your life soon.
+If you care about IE9 and lower, don't worry we are sure that you will have the white line in your life soon.
 
-For IE9 and lower form will be submited as `HTML`.
+For IE9 and lower form will be submitted as `HTML`.
 You just have to add the `authenticity_token` option to your form
 
 ```slim
