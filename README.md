@@ -12,7 +12,6 @@ Add it to your Gemfile:
 
 ```ruby
 gem 'ufujs-rails'
-gem 'carrierwave-base64'
 ```
 
 Then run `bundle install` to update your application's bundle.
@@ -25,14 +24,16 @@ And in `application.js` under the `jquery_ujs`:
 
 Usage
 -
+This gem encode the base64 string on the client side and handle the decoding in middleware, so we will get already decoded string in params on server side.
 
-This gem encode the base64 string on the client side.
-Use [carrierwave-base64](https://github.com/lebedev-yury/carrierwave-base64) to handle the decoding on the server side.
-
-Active Record
 =
+add `config.middleware.use "Decoder"` to `config/application.rb`
 
-Mount the uploader: `mount_base64_uploader :image, ImageUploader`
+List all parameters, that should be decoded in `config/initializers/encoded_parameters.rb`:
+
+```ruby
+config.encoded_parameters += [:image]
+```
 
 Filter Parameters
 =

@@ -4,7 +4,7 @@ require File.expand_path('../lib/ufujs-rails/version', __FILE__)
 Gem::Specification.new do |s|
   s.name          = 'ufujs-rails'
   s.version       = Ufujs::Rails::VERSION
-  s.authors       = ['Alex Galushka']
+  s.authors       = ['Alex Galushka', 'Alexey Lukin']
   s.email         = ['galulex@gmail.com']
   s.homepage      = 'https://github.com/active-bridge/ufujs-rails'
   s.summary       = 'Dead simple remove file uploader for Rails'
