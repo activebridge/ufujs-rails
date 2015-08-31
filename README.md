@@ -26,13 +26,11 @@ Usage
 -
 This gem encode the base64 string on the client side and handle the decoding in middleware, so we will get already decoded string in params on server side.
 
-add `config.middleware.insert_before ActionController::ParamsParser, 'Decoder'` to `config/application.rb`
+add `config.autoload_paths += ["#{config.root}/app/middlewares"]` to `config/application.rb`
 
-List all parameters, that should be decoded in `config/initializers/encoded_parameters.rb`:
+add `config.middleware.insert_before ActionController::ParamsParser, 'Decoder', ['image', 'avatar']` to `config/application.rb`
 
-```ruby
-config.encoded_parameters += [:image]
-```
+Pass all parameters, that should be decoded, to middleware in the line above
 
 Filter Parameters
 -
