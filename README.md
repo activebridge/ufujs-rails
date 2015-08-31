@@ -1,13 +1,11 @@
 Unobtrusive File Upload adapter for jQuery UJS and Rails
 -
-
 This gem takes care about file uploads for remote form.
 It is a simple alternative for [remotipart](https://github.com/JangoSteve/remotipart) gem for rails.
 But instead of using iframe for file uploads this gem uses the base64 encoding to send the file to the server.
 
 Installing
 -
-
 Add it to your Gemfile:
 
 ```ruby
@@ -26,24 +24,11 @@ Usage
 -
 This gem encode the base64 string on the client side and handle the decoding in middleware, so we will get already decoded string in params on server side.
 
-add `config.autoload_paths += ["#{config.root}/app/middlewares"]` to `config/application.rb`
-
-add `config.middleware.insert_before ActionController::ParamsParser, 'Decoder'` to `config/application.rb`
-
 Data format
 -
-
 The string with the encoded data, should be prefixed with Data URI scheme format:
 
 `data:image/jpg;base64,(base64 encoded data)`
-
-Filter Parameters
--
-To keep your logs clean you can add the filter with name of you attribute to `config/initializers/filter_paremeter_logging.rb`:
-
-```ruby
-config.filter_parameters += [:image]
-```
 
 Browser Compatibility
 -
