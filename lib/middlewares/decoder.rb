@@ -1,11 +1,8 @@
 require 'base64'
 
 class Decoder
-  ENCODING_NAME = 'US-ASCII'
-
-  def initialize(app, encoded_parameters = [])
+  def initialize(app)
     @app = app
-    @encoded_parameters = encoded_parameters
   end
 
   def call(env)
@@ -17,13 +14,16 @@ class Decoder
 
   def decode(env)
     request = Rack::Request.new(env)
-    # query_hash = env['rack.request.query_hash']
-    request.params.select { |k, _| @encoded_parameters.include?(k) }.each do |k, v|
-      request.update_param(k, Base64.decode64(v)) if base64_encoded?(v)
+    request.params.select { |_, v| base64_encoded?(v) }.each do |k, encoded_file|
+      description, encoded_bytes = encoded_file.split(",")
+      #using description we could get original_filename of encoded file
+      break unless encoded_bytes
+      break if encoded_bytes.eql?("(null)")
+      request.update_param(k, Base64.decode64(encoded_bytes))
     end
   end
 
-  def base64_encoded?(obj)
-    obj.encoding.try(:name) == ENCODING_NAME
+  def base64_encoded?(encoded_file)
+    encoded_file.present? && encoded_file.is_a?(String) && encoded_file.strip.start_with?("data")
   end
 end

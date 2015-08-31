@@ -28,9 +28,14 @@ This gem encode the base64 string on the client side and handle the decoding in 
 
 add `config.autoload_paths += ["#{config.root}/app/middlewares"]` to `config/application.rb`
 
-add `config.middleware.insert_before ActionController::ParamsParser, 'Decoder', ['image', 'avatar']` to `config/application.rb`
+add `config.middleware.insert_before ActionController::ParamsParser, 'Decoder'` to `config/application.rb`
 
-Pass all parameters, that should be decoded, to middleware in the line above
+Data format
+-
+
+The string with the encoded data, should be prefixed with Data URI scheme format:
+
+`data:image/jpg;base64,(base64 encoded data)`
 
 Filter Parameters
 -
