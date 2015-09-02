@@ -1,5 +1,3 @@
 module Ufujs
-  module Rails
-    VERSION = '0.0.2'
-  end
+  VERSION = '0.0.2'
 end
