@@ -1,13 +1,13 @@
 require 'base64'
 
 class Array
-  def modify_values!
+  def modify_values!(&decode)
     result = []
     self.map do |obj|
-      result << if obj.kind_of?(Hash) && obj.kind_of?(Array)
-                  obj.modify_values!
+      result << if obj.kind_of?(Hash) || obj.kind_of?(Array)
+                  obj.modify_values!(&decode)
                 else
-                  yield(obj)
+                  decode.call(obj)
                 end
     end
     result
@@ -15,13 +15,13 @@ class Array
 end
 
 class Hash
-  def modify_values!
+  def modify_values!(&decode)
     result = {}
     self.map do |k, v|
-      result[k] = if v.kind_of?(Hash) && v.kind_of?(Array)
-                    v.modify_values!
+      result[k] = if v.kind_of?(Hash) || v.kind_of?(Array)
+                    v.modify_values!(&decode)
                   else
-                    yield(v)
+                    decode.call(v)
                   end
     end
     result
@@ -70,6 +70,7 @@ module Ufujs
 
     def decoded_parameters(env)
       request = Rack::Request.new(env)
+      p request.params
       decode = Proc.new { |v| base64_encoded?(v) ? parse_image_data(v) : v }
       request.params.modify_values!(&decode)
     end
