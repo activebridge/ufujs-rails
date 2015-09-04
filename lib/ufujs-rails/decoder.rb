@@ -1,4 +1,5 @@
 require 'base64'
+require 'securerandom'
 
 class Array
   def modify_values!(&decode)
@@ -48,29 +49,23 @@ module Ufujs
     end
 
     def parse_image_data(base64_image)
-      filename = "upload-image" # FIXME we want the original name
+      filename = SecureRandom.hex(32) # FIXME we want the original name
       in_content_type, encoding, string = base64_image.split(/[:;,]/)[1..3]
 
       tempfile = Tempfile.new(filename)
       tempfile.binmode
       tempfile.write Base64.decode64(string)
       tempfile.rewind
-
-      content_type = `file --mime -b #{tempfile.path}`.split(";")[0]
-
-      extension = content_type.match(/gif|jpeg|png|jpg/).to_s
-      filename += ".#{extension}" if extension
+      filename += ".#{in_content_type.split('/').last}"
 
       ActionDispatch::Http::UploadedFile.new({
         tempfile: tempfile,
-        content_type: content_type,
         filename: filename
       })
     end
 
     def decoded_parameters(env)
       request = Rack::Request.new(env)
-      p request.params
       decode = Proc.new { |v| base64_encoded?(v) ? parse_image_data(v) : v }
       request.params.modify_values!(&decode)
     end
