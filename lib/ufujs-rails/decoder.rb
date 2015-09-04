@@ -1,34 +1,6 @@
 require 'base64'
 require 'securerandom'
 
-class Array
-  def modify_values!(&decode)
-    result = []
-    self.map do |obj|
-      result << if obj.kind_of?(Hash) || obj.kind_of?(Array)
-                  obj.modify_values!(&decode)
-                else
-                  decode.call(obj)
-                end
-    end
-    result
-  end
-end
-
-class Hash
-  def modify_values!(&decode)
-    result = {}
-    self.map do |k, v|
-      result[k] = if v.kind_of?(Hash) || v.kind_of?(Array)
-                    v.modify_values!(&decode)
-                  else
-                    decode.call(v)
-                  end
-    end
-    result
-  end
-end
-
 module Ufujs
   class Decoder
     def initialize(app)
@@ -49,7 +21,7 @@ module Ufujs
     end
 
     def parse_image_data(base64_image)
-      filename = SecureRandom.hex(32) # FIXME we want the original name
+      filename = SecureRandom.hex(32)
       in_content_type, encoding, string = base64_image.split(/[:;,]/)[1..3]
 
       tempfile = Tempfile.new(filename)
@@ -64,10 +36,32 @@ module Ufujs
       })
     end
 
+    def modify_values(obj, &decode)
+      result = obj.class.new
+      if obj.kind_of?(Hash)
+        obj.map do |k, v|
+          result[k] = if v.kind_of?(Hash) || v.kind_of?(Array)
+                        modify_values(v, &decode)
+                      else
+                        decode.call(v)
+                      end
+        end
+      else
+        obj.map do |v|
+          result << if v.kind_of?(Hash) || v.kind_of?(Array)
+                      modify_values(v, &decode)
+                    else
+                      decode.call(v)
+                    end
+        end
+      end
+      result
+    end
+
     def decoded_parameters(env)
       request = Rack::Request.new(env)
       decode = Proc.new { |v| base64_encoded?(v) ? parse_image_data(v) : v }
-      request.params.modify_values!(&decode)
+      modify_values(request.params, &decode)
     end
   end
 end
