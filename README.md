@@ -22,17 +22,10 @@ And in `application.js` under the `jquery_ujs`:
 
 Usage
 -
-This gem encode the base64 string on the client side and handle the decoding in middleware, so we will get already decoded string in params on server side.
-
-Data format
--
-The string with the encoded data, should be prefixed with Data URI scheme format:
-
-`data:image/jpg;base64,(base64 encoded data)`
+This gem encode the base64 string on the client side and handle the decoding in middleware, so we will get already decoded file in params on server side.
 
 Browser Compatibility
 -
-
 ![ie10](http://www.browserbadge.com/ie/10/75px)
 ![chrome](http://www.browserbadge.com/chrome/75px)
 ![firefox](http://www.browserbadge.com/firefox/75px)
